@@ -15,7 +15,7 @@
 
 #let TITLEPAGE_STUDENT_ID = (
   "de": "Matrikelnummer, Kurs:",
-  "en": "Student ID, Course:",
+  "en": "Student ID:",
 )
 
 #let TITLEPAGE_COMPANY = (
@@ -31,6 +31,11 @@
 #let TITLEPAGE_SUPERVISOR = (
   "de": "Betreuer an der ",
   "en": "Supervisor at ",
+)
+
+#let TITLEPAGE_REVIEWER = (
+  "de": "Gutachter an der ",
+  "en": "Reviewer at ",
 )
 
 #let DECLARATION_OF_AUTHORSHIP_TITLE = (

@@ -11,6 +11,7 @@
   many-authors,
   right-logo-height,
   supervisor,
+  reviewer,
   title,
   type-of-degree,
   type-of-thesis,
@@ -212,7 +213,7 @@
     stack(
       dir: ttb,
       for author in authors {
-        text([#author.student-id, #author.course])
+        text([#author.student-id])
         linebreak()
       }
     ),
@@ -292,6 +293,19 @@
     },
     if ("university" in supervisor and type(supervisor.university) == str) {
       text(supervisor.university)
+    },
+
+    // university supervisor
+    if ("university" in reviewer) {
+      text(
+        weight: "semibold",
+        TITLEPAGE_REVIEWER.at(language) +
+        university-short +
+        [:]
+      )
+    },
+    if ("university" in reviewer and type(reviewer.university) == str) {
+      text(reviewer.university)
     }
   )
 }

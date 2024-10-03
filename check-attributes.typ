@@ -25,6 +25,7 @@
   university,
   university-location,
   supervisor,
+  reviewer,
   date,
   city,
   bibliography,
@@ -152,9 +153,9 @@
       panic("Student ID of '" + author.name + "' is missing. Specify a student ID for each author in the 'authors' attribute of the template.")
     }
 
-    if ("course" not in author or author.course == none or author.course == "") {
-      panic("Course of '" + author.name + "' is missing. Specify a course for each author in the 'authors' attribute of the template.")
-    }
+    // if ("course" not in author or author.course == none or author.course == "") {
+    //   panic("Course of '" + author.name + "' is missing. Specify a course for each author in the 'authors' attribute of the template.")
+    // }
 
     if ("course-of-studies" not in author or author.course-of-studies == none or author.course-of-studies == "") {
       panic("Course of studies of '" + author.name + "' is missing. Specify a course of studies for each author in the 'authors' attribute of the template.")
@@ -230,6 +231,14 @@
     ) and ("university" not in supervisor or supervisor.university == none or supervisor.university == "")
   ) {
     panic("Supervisor(s) is/are invalid. Specify a supervisor either for the company and/or the university in the 'supervisor' attribute of the template.")
+  }
+
+  if (
+    type(reviewer) != dictionary or (
+      "company" not in reviewer or reviewer.company == none or reviewer.company == ""
+    ) and ("university" not in reviewer or reviewer.university == none or reviewer.university == "")
+  ) {
+    panic("Reviewer(s) is/are invalid. Specify a reviewer either for the company and/or the university in the 'reviewer' attribute of the template.")
   }
 
   let string-array-attributes = (
