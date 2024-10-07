@@ -14,7 +14,7 @@
 )
 
 #let TITLEPAGE_STUDENT_ID = (
-  "de": "Matrikelnummer, Kurs:",
+  "de": "Matrikelnummer:",
   "en": "Student ID:",
 )
 
