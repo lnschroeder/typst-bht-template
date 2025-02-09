@@ -143,8 +143,8 @@
   }
 
   // save heading and body font families in variables
-  let body-font = "Open Sans"
-  let heading-font = "Montserrat"
+  let body-font = "STIX Two Text"
+  let heading-font = "STIX Two Text"
 
   // customize look of figure
   set figure.caption(separator: [ --- ], position: bottom)
