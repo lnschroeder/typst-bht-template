@@ -221,71 +221,74 @@
 
   set page(
     margin: (top: 8em, bottom: 8em),
-    header: context {
-      if (display-header) {
-        if (header-content != none) {
-          header.content
-        } else {
-          grid(
-            columns: (1fr, auto),
-            align: (left, right),
-            gutter: 2em,
-            if (show-header-chapter) {
-              align(left + bottom)[
-                #let headings = query(heading.where(level: 1))
-                #if headings.len() > 0 and not headings.any(it => (it.location().page() == here().page())) {
-                  let elems = query(
-                    selector(heading.where(level: 1)).before(here()),
-                  )
+    header: [
+      #counter(footnote).update(0),
+      #context {
+        if (display-header) {
+          if (header-content != none) {
+            header.content
+          } else {
+            grid(
+              columns: (1fr, auto),
+              align: (left, right),
+              gutter: 2em,
+              if (show-header-chapter) {
+                align(left + bottom)[
+                  #let headings = query(heading.where(level: 1))
+                  #if headings.len() > 0 and not headings.any(it => (it.location().page() == here().page())) {
+                    let elems = query(
+                      selector(heading.where(level: 1)).before(here()),
+                    )
 
-                  if (elems.len() > 0) {
-                    let current-heading = elems.last()
-                    let heading-counter = if current-heading.numbering == none {
-                      none
-                    } else {
-                      counter(heading).get().first()
+                    if (elems.len() > 0) {
+                      let current-heading = elems.last()
+                      let heading-counter = if current-heading.numbering == none {
+                        none
+                      } else {
+                        counter(heading).get().first()
+                      }
+
+                      [#heading-counter #current-heading.body]
                     }
+                  } else {
+                    let elems = query(
+                      selector(heading.where(level: 1)).after(here()),
+                    )
 
-                    [#heading-counter #current-heading.body]
-                  }
-                } else {
-                  let elems = query(
-                    selector(heading.where(level: 1)).after(here()),
-                  )
+                    if (elems.len() > 0) {
+                      let current-heading = elems.first()
+                      let heading-counter = if current-heading.numbering == none {
+                        none
+                      } else {
+                        counter(heading).get().first() + 1
+                      }
 
-                  if (elems.len() > 0) {
-                    let current-heading = elems.first()
-                    let heading-counter = if current-heading.numbering == none {
-                      none
-                    } else {
-                      counter(heading).get().first() + 1
+                      [#heading-counter #current-heading.body]
                     }
-
-                    [#heading-counter #current-heading.body]
                   }
-                }
-              ]
-            },
-            stack(
-              dir: ltr,
-              spacing: 1em,
-              if (show-header-left-logo and logo-left != none) {
-                set image(height: left-logo-height / 2)
-                logo-left
+                ]
               },
-              if (show-header-right-logo and logo-right != none) {
-                set image(height: right-logo-height / 2)
-                logo-right
-              },
-            ),
-          )
-          v(-0.75em)
-          if (show-header-divider) {
-            line(length: 100%)
+              stack(
+                dir: ltr,
+                spacing: 1em,
+                if (show-header-left-logo and logo-left != none) {
+                  set image(height: left-logo-height / 2)
+                  logo-left
+                },
+                if (show-header-right-logo and logo-right != none) {
+                  set image(height: right-logo-height / 2)
+                  logo-right
+                },
+              ),
+            )
+            v(-0.75em)
+            if (show-header-divider) {
+              line(length: 100%)
+            }
           }
         }
       }
-    },
+    ],
   )
 
   // set page numbering to roman numbering
@@ -350,7 +353,13 @@
   context {
     let elems = query(figure.where(kind: image), here())
     let count = elems.len()
-
+    show outline.where(target: figure.where(kind: image)): it => {
+      show outline.entry: it => {
+        show cite: it => { }
+        it
+      }
+      it
+    }
     if (show-list-of-figures and count > 0) {
       outline(
         title: LIST_OF_FIGURES.at(language),
@@ -362,6 +371,14 @@
   context {
     let elems = query(figure.where(kind: table), here())
     let count = elems.len()
+
+    show outline.where(target: figure.where(kind: table)): it => {
+      show outline.entry: it => {
+        show cite: it => { }
+        it
+      }
+      it
+    }
 
     if (show-list-of-tables and count > 0) {
       outline(
@@ -430,6 +447,7 @@
       title: REFERENCES.at(language),
       style: bib-style,
     )
+    set par(leading: 0.65em)
     bibliography
   }
 
