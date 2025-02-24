@@ -222,7 +222,7 @@
   set page(
     margin: (top: 8em, bottom: 8em),
     header: [
-      #counter(footnote).update(0),
+      #counter(footnote).update(0)
       #context {
         if (display-header) {
           if (header-content != none) {
