@@ -10,7 +10,7 @@
 
 #let TITLEPAGE_SECTION_C = (
   "de": "an der ",
-  "en": "at the ",
+  "en": "at ",
 )
 
 #let TITLEPAGE_STUDENT_ID = (
