@@ -384,7 +384,7 @@
     text(abstract)
   }
 
-  set par(leading: 0.65em)
+  set par(leading: 0.64em)
 
   if (show-table-of-contents) {
     outline(
